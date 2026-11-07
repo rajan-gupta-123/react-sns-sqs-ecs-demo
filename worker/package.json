@@ -1,0 +1,8 @@
+{
+  "name": "sns-sqs-demo-worker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": { "start": "node worker.js" },
+  "dependencies": { "@aws-sdk/client-sqs": "^3.800.0" }
+}
