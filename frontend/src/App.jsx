@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 
-const API = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001";
 
 function MetricCard({ title, value, note }) {
   return <div className="metric"><span>{title}</span><strong>{value ?? "—"}</strong><small>{note}</small></div>;
@@ -17,7 +16,7 @@ export default function App() {
   async function refreshMetrics() {
     setBusy(true); setError("");
     try {
-      const response = await fetch(`${API}/api/metrics`);
+      const response = await fetch("/api/metrics");
       if (!response.ok) throw new Error(await response.text());
       setMetrics(await response.json());
     } catch (e) { setError(`Metrics request failed: ${e.message}`); }
@@ -27,7 +26,7 @@ export default function App() {
   async function publish(simulateFailure = false) {
     setBusy(true); setError(""); setResult("");
     try {
-      const response = await fetch(`${API}/api/publish`, {
+      const response = await fetch("/api/publish", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ orderId, amount: Number(amount), simulateFailure })
